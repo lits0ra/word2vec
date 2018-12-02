@@ -5,13 +5,26 @@ texts = ["I", "love", "to", "read", "books", "so", "I", "decided", "to", "go", "
 
 value_num = 0
 
-text_ids = {}
+def onehot(num):
+    return tf.reshape(tf.transpose(tf.one_hot(num, 10)), [10, 1])
 
-for key in texts:
-    if key not in text_ids.keys():
-        text_ids[key] = tf.reshape(tf.transpose(tf.one_hot(value_num, 10)), [10, 1])
-        value_num = value_num + 1
-print(text_ids)
+text_ids = {"I": onehot(1),
+            "love": onehot(2),
+            "to": onehot(3),
+            "read": onehot(4),
+            "books": onehot(5),
+            "so": onehot(6),
+            "decided": onehot(7),
+            "go": onehot(8),
+            "a": onehot(9),
+            "bookstore": onehot(10)
+            }
+
+# for key in texts:
+#     if key not in text_ids.keys():
+#         text_ids[key] = tf.reshape(tf.transpose(tf.one_hot(value_num, 10)), [10, 1])
+#         value_num = value_num + 1
+# print tf.Session().run(text_ids)
 
 w = tf.Variable(tf.random_normal([10, 10], -0.01, 0.01))
 
@@ -29,16 +42,11 @@ init = tf.global_variables_initializer()
 
 loss = tf.reduce_mean(tf.square(y - y_))
 
-train = tf.train.GradientDescentOptimizer(0.01).minimize(loss)
+train = tf.train.GradientDescentOptimizer(0.5).minimize(loss)
 with tf.Session() as sess:
     sess.run(init)
-    print(sess.run(loss , feed_dict={
-        x1: sess.run(text_ids[texts[1]]),
-        x2: sess.run(text_ids[texts[3]]), 
-        y: sess.run(text_ids[texts[2]])
-    }))
-    print("-----")
-    for i in range(200):
+    print(sess.run(text_ids))
+    for i in range(100):
         for i in range(len(texts) - 2):
             sess.run(train, feed_dict={
                 x1: sess.run(text_ids[texts[i]]),
