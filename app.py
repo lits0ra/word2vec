@@ -1,6 +1,9 @@
 import tensorflow as tf
 import numpy as np
 
+texts = ["I", "love", "to", "read", "books", "so", "I", "decided", "to", "go", "to", "a", "bookstore"]
+
+value_num = 0
 
 def onehot(num):
     return tf.reshape(tf.transpose(tf.one_hot(num, 10)), [10, 1])
@@ -47,13 +50,13 @@ with tf.Session() as sess:
         for i in range(len(texts) - 2):
             sess.run(train, feed_dict={
                 x1: sess.run(text_ids[texts[i]]),
-                x2: sess.run(text_ids[texts[i+2]]),
+                x2: sess.run(text_ids[texts[i+2]]), 
                 y: sess.run(text_ids[texts[i+1]])
             })
             print(sess.run(loss, feed_dict={
                 x1: sess.run(text_ids[texts[i]]),
-                x2: sess.run(text_ids[texts[i+2]]),
+                x2: sess.run(text_ids[texts[i+2]]), 
                 y: sess.run(text_ids[texts[i+1]])
             }))
-
+            
     print(sess.run(w))
