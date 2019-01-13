@@ -4,7 +4,6 @@ import os
 import glob
 import json
 
-
 def onehot(start_num, finish_num):
     return tf.reshape(tf.transpose(tf.one_hot(start_num, finish_num)), [finish_num, 1])
 
