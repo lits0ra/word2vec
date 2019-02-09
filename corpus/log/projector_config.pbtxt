@@ -1,0 +1,4 @@
+embeddings {
+  tensor_name: "Variable:0"
+  metadata_path: "/Users/kandasora/Desktop/Python/word2vec/corpus/model/blog.metadata.tsv"
+}

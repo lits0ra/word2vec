@@ -1,0 +1,2 @@
+model_checkpoint_path: "blog.ckpt-197"
+all_model_checkpoint_paths: "blog.ckpt-197"
